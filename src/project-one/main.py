@@ -23,6 +23,8 @@ df_age_population = df.groupby(pd.cut(df['age'], bins=intervals, right=False, la
 df_age_population = df_age_population.drop(columns=['age'])
 print(df_age_population.head(20))
 
+print("La población total es: ", df_age_population['population'].sum())
+
 #  Realizar la descripción de los datos agrupados
 # Calculamos la media ponderada usando population como pesos
 mean_age = (df['age'] * df['population']).sum() / df['population'].sum()
@@ -159,9 +161,11 @@ standard_deviation_per_group = pd.Series(standard_deviations_per_group, index=si
 z_values_per_group = pd.Series(z_values_per_group, index=simplified_labels)
 probabilities_per_group = pd.Series(probabilities_per_group, index=simplified_labels)
 
-df_age_population_with_statistics = df_age_population.copy()
+df_age_population_with_statistics = df_age_population.copy(deep=True)
 df_age_population_with_statistics['mean'] = mean_per_group.values
 df_age_population_with_statistics['standard_deviation'] = standard_deviation_per_group.values
+# Add the target ages to the dataframe
+df_age_population_with_statistics['target_age'] = target_ages
 df_age_population_with_statistics['z_value'] = z_values_per_group.values
 df_age_population_with_statistics['probability'] = probabilities_per_group.values
 
@@ -169,5 +173,5 @@ print("DataFrame con estadísticas de cada grupo:")
 print(df_age_population_with_statistics)
 
 # Guardar el dataframe en un csv
-df_age_population_with_statistics.to_csv('src/project-one/data/df_age_population_with_statistics.csv', index=False)
+df_age_population_with_statistics.to_csv('src/project-one/data/df_age_population_with_statistics.csv', index=True)
 
