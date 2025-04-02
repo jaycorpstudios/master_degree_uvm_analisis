@@ -3,7 +3,7 @@
 # Initialize Python Environment
 
 ```bash
-  source venv/bin/activate
+  source .venv/bin/activate
 ```
 
 # Install Dependencies
