@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from theme import color
 from utils import format_to_millions
 from scipy.stats import norm
-df = pd.read_csv("src/project-one/data/mx_population_cleaned.csv", 
+df = pd.read_csv("src/proyecto-integrador/data/mx_population_cleaned.csv", 
                  usecols=['age', 'population'],
                  dtype={
                      'age': 'Int64',
@@ -55,7 +55,7 @@ statistics_description = {
 
 statistics_description_df = pd.DataFrame(statistics_description)
 print(statistics_description_df.head(10))
-statistics_description_df.to_csv('src/project-one/data/statistics_description.csv', index=False)
+statistics_description_df.to_csv('src/proyecto-integrador/data/statistics_description.csv', index=False)
 
 # Histograma con poligono de frecuencias
 plt.figure(figsize=(12, 6))
@@ -89,7 +89,7 @@ plt.legend()
 plt.grid(axis='y', linestyle='--', alpha=0.5)
 plt.gca().set_facecolor('none')
 plt.gcf().set_facecolor('none')
-plt.savefig('src/project-one/plots/histogram_and_polygon_of_population.png', dpi=300)
+plt.savefig('src/proyecto-integrador/plots/histogram_and_polygon_of_population.png', dpi=300)
 
 # Ojiva de la población
 cumulative_frequencies = np.cumsum(frequencies_by_group)
@@ -131,7 +131,7 @@ plt.legend()
 plt.subplots_adjust(bottom=0.2)
 plt.gca().set_facecolor('none')
 plt.gcf().set_facecolor('none')
-plt.savefig('src/project-one/plots/cumulative_frequency_polygon.png', dpi=300)
+plt.savefig('src/proyecto-integrador/plots/cumulative_frequency_polygon.png', dpi=300)
 
 plt.show()
 
@@ -173,5 +173,5 @@ print("DataFrame con estadísticas de cada grupo:")
 print(df_age_population_with_statistics)
 
 # Guardar el dataframe en un csv
-df_age_population_with_statistics.to_csv('src/project-one/data/df_age_population_with_statistics.csv', index=True)
+df_age_population_with_statistics.to_csv('src/proyecto-integrador/data/df_age_population_with_statistics.csv', index=True)
 

@@ -21,7 +21,7 @@ def load_and_clean_population_data(path: str) -> pd.DataFrame:
     return df
 
 
-df = load_and_clean_population_data("src/project-one/data/mx_population.csv")
+df = load_and_clean_population_data("src/proyecto-integrador/data/mx_population.csv")
 df = df.rename(columns={'age': 'category'})
 df['age'] = pd.to_numeric(df['category'].str.extract(r'(\d+) años')[0], errors='coerce').astype('Int64')
 df['age'] = df['age'].fillna(pd.NA)
@@ -48,4 +48,4 @@ print(df.dtypes)
 
 
 # save as csv
-df.to_csv("src/project-one/data/mx_population_cleaned.csv", index=False)
+df.to_csv("src/proyecto-integrador/data/mx_population_cleaned.csv", index=False)
