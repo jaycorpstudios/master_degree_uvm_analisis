@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import math
 import matplotlib.pyplot as plt
-from theme import color
+from src.theme import color
 from utils import format_to_millions
 from scipy.stats import norm
 df = pd.read_csv("src/proyecto-integrador/data/mx_population_cleaned.csv", 
