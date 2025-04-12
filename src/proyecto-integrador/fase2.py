@@ -1,11 +1,6 @@
 import pandas as pd
 from pandas.api.types import CategoricalDtype
 import numpy as np
-import json
-import math
-import matplotlib.pyplot as plt
-from src.theme import color
-from utils import format_to_millions, get_weighted_statistics
 from scipy.stats import norm
 df = pd.read_csv("src/proyecto-integrador/data/mx_population_cleaned.csv", 
                  usecols=['age', 'men', 'women'],
