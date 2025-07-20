@@ -27,3 +27,10 @@ build/
 .cache/
 .pytest_cache/
 
+# R files
+.RData
+.Rhistory
+.Rapp.history
+*.Rproj
+.Rproj.user/
+
