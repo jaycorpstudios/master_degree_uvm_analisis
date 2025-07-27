@@ -15,16 +15,11 @@ data <- data.frame(Solvent = solvent, Press = press, Yield = yield)
 # Visualize how the response variable varies across treatments and concentrations
 library(ggplot2)
 
-# Opción 1: Gráfico de puntos con líneas de interacción
-ggplot(data, aes(x = Solvent, y = Yield, color = Press, group = Press)) +
-  geom_point(size = 3) +
-  geom_line() +
-  labs(title = "Oil yield by Solvent and Press",
-       x = "Solvent",
-       y = "Yield (ml)") +
-  theme_minimal()
+# Important note after first attempt to use boxplot:
+# Boxplot is not suitable for this type of data, visually makes no sense, as we only have one observation per treatment combination.
 
-# Opción 2: Gráfico de barras agrupadas
+# Grouped bar chart: Allows direct comparison of Press types within each Solvent level
+# Useful for identifying which Press performs best for each Solvent and detecting interaction effects
 ggplot(data, aes(x = Solvent, y = Yield, fill = Press)) +
   geom_col(position = "dodge", alpha = 0.8) +
   labs(title = "Oil yield by Solvent and Press",
@@ -32,7 +27,8 @@ ggplot(data, aes(x = Solvent, y = Yield, fill = Press)) +
        y = "Yield (ml)") +
   theme_minimal()
 
-# Opción 3: Facet wrap para separar por Press
+# Faceted plot: Separates each Press type for cleaner visualization of Solvent effects
+# Helps identify patterns within each Press type and facilitates comparison of Solvent performance
 ggplot(data, aes(x = Solvent, y = Yield, fill = Press)) +
   geom_col() +
   facet_wrap(~Press, ncol = 2) +
