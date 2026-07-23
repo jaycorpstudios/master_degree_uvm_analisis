@@ -34,3 +34,6 @@ build/
 *.Rproj
 .Rproj.user/
 
+# Datasets crudos (no versionar dado el tamaño)
+artificial_inteligence/data/
+

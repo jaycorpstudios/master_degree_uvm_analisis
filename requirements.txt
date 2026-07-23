@@ -24,6 +24,9 @@ Pygments==2.19.1
 pyparsing==3.2.3
 python-dateutil==2.9.0.post0
 pytz==2025.1
+joblib==1.4.2
+scikit-learn==1.6.1
+threadpoolctl==3.6.0
 scipy==1.15.2
 six==1.17.0
 stack-data==0.6.3
