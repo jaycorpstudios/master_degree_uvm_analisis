@@ -39,7 +39,7 @@ def section(title):
 
 
 def load_flowers():
-    section("D. CARGA DE DATOS Y ELIMINACION DEL ATRIBUTO class")
+    section("CARGA DE DATOS Y ELIMINACION DEL ATRIBUTO class")
     records, _ = arff.loadarff(DATA_PATH)
     flowers = pd.DataFrame(records)
     flowers["class"] = flowers["class"].str.decode("utf-8")
@@ -91,7 +91,7 @@ def plot_groups(flowers, labels, centers, title, path):
 
 
 def kmeans_three_groups(flowers, species, scaled, scaler):
-    section("E. K-MEANS CON TRES GRUPOS")
+    section("K-MEANS CON TRES GRUPOS")
     model = KMeans(n_clusters=K_MAIN, init="random", n_init=1, random_state=SEED)
     labels = model.fit_predict(scaled)
     print(f"Iteraciones: {model.n_iter_}")
@@ -101,19 +101,19 @@ def kmeans_three_groups(flowers, species, scaled, scaler):
     print("\nFlores por grupo:")
     print(pd.Series(labels).value_counts().sort_index().to_string())
 
-    section("F. ASIGNACION DE GRUPOS")
+    section("ASIGNACION DE GRUPOS")
     assigned = flowers.assign(grupo=labels)
     print(assigned.sample(8, random_state=SEED).sort_index().to_string())
     plot_groups(flowers, labels, centroids_in_cm(model, scaler),
                 "K-means con k = 3", PLOTS_DIR / "kmeans_k3.png")
 
-    section("G. GRUPOS CONTRA LA ESPECIE ORIGINAL")
+    section("GRUPOS CONTRA LA ESPECIE ORIGINAL")
     print(pd.crosstab(labels, species, rownames=["grupo"], colnames=["especie"]).to_string())
     return labels
 
 
 def sse_by_k(scaled):
-    section("H. SSE PARA k = 2, 3, 4 y 5")
+    section("SSE PARA k = 2, 3, 4 y 5")
     rows = []
     for k in K_RANGE:
         model = KMeans(n_clusters=k, init="random", n_init=1, random_state=SEED).fit(scaled)
@@ -183,7 +183,7 @@ def fit_with_init(scaled, method, k, seed):
 
 
 def compare_initializations(scaled):
-    section(f"J. METODOS DE INICIALIZACION (k = {K_MAIN}, semilla {SEED})")
+    section(f"METODOS DE INICIALIZACION (k = {K_MAIN}, semilla {SEED})")
     rows = []
     for method in INIT_METHODS:
         model = fit_with_init(scaled, method, K_MAIN, SEED)
@@ -193,7 +193,7 @@ def compare_initializations(scaled):
     print(pd.DataFrame(rows).to_string(index=False))
 
     for k in K_STABILITY:
-        section(f"J. ESTABILIDAD CON {len(SEEDS_TO_COMPARE)} SEMILLAS DISTINTAS (k = {k})")
+        section(f"ESTABILIDAD CON {len(SEEDS_TO_COMPARE)} SEMILLAS DISTINTAS (k = {k})")
         sse_by_method = {
             method: [fit_with_init(scaled, method, k, seed).inertia_ for seed in SEEDS_TO_COMPARE]
             for method in INIT_METHODS
@@ -215,7 +215,7 @@ def cross_validated_loglikelihood(raw, components):
 
 
 def expectation_maximization(flowers, species):
-    section("K. EM: ELECCION DEL NUMERO DE GRUPOS POR VALIDACION CRUZADA")
+    section("EM: ELECCION DEL NUMERO DE GRUPOS POR VALIDACION CRUZADA")
     raw = flowers[FEATURES].to_numpy()
     best, best_score = 1, cross_validated_loglikelihood(raw, 1)
     print(f"  1 grupos -> log-verosimilitud media: {best_score:.4f}")
@@ -227,7 +227,7 @@ def expectation_maximization(flowers, species):
         best, best_score = best + 1, score
     print(f"Numero de grupos elegido: {best}")
 
-    section(f"K. EM CON {best} GRUPOS")
+    section(f"EM CON {best} GRUPOS")
     model = GaussianMixture(best, covariance_type="diag", random_state=SEED).fit(raw)
     labels = model.predict(raw)
     summary = pd.DataFrame({
@@ -242,7 +242,7 @@ def expectation_maximization(flowers, species):
     print("\nFlores por grupo:")
     print(pd.Series(labels).value_counts().sort_index().to_string())
 
-    section("L. GRUPOS DE EM CONTRA LA ESPECIE ORIGINAL")
+    section("GRUPOS DE EM CONTRA LA ESPECIE ORIGINAL")
     print(pd.crosstab(labels, species, rownames=["grupo"], colnames=["especie"]).to_string())
     centers = pd.DataFrame(model.means_, columns=FEATURES)
     plot_groups(flowers, labels, centers, f"EM con {best} grupos", PLOTS_DIR / "em.png")

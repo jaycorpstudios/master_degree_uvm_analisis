@@ -25,7 +25,7 @@ def section(title):
 
 
 def load_points():
-    section("M. CARGA DE INFORMACION.csv")
+    section("CARGA DE INFORMACION.csv")
     points = pd.read_csv(DATA_PATH)
     points.index = [f"P{i}" for i in range(1, len(points) + 1)]
     print(points.to_string())
@@ -49,7 +49,7 @@ def build_dendrograms(points):
     summary = []
     tallest_merge = 0
     for axis, (method, title) in zip(axes, LINKAGES.items()):
-        section(f"N. {title.upper()} ({method})")
+        section(f"{title.upper()} ({method})")
         merges = linkage(distances, method=method)
         print(merge_table(merges, points.index).to_string(index=False))
         for groups in CUTS:
@@ -74,7 +74,7 @@ def build_dendrograms(points):
     figure.savefig(PLOTS_DIR / "dendrogramas.png", dpi=150)
     plt.close(figure)
 
-    section("N. COMPARACION DE LOS TRES ENLACES")
+    section("COMPARACION DE LOS TRES ENLACES")
     print(pd.DataFrame(summary).to_string(index=False))
 
 
